@@ -1,5 +1,8 @@
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", playSound);
 
+document.addEventListener("keyup", removeTransition);
+
+function playSound(event) {
     const audio = document.querySelector("audio[data-key=" + '"' + event.key + '"' + "]");
     const key = document.querySelector(".key[data-key=" + '"' + event.key + '"' + "]");
 
@@ -11,18 +14,17 @@ document.addEventListener("keydown", function (event) {
     //     // setTimeout(function () {
     //     //     key.classList.remove("playing");
     //     // }, 100);
+}
 
-
-});
-
-
-document.addEventListener("keyup", function (event) {
+function removeTransition(event) {
     const up = document.querySelector(".key[data-key=" + '"' + event.key + '"' + "]");
     console.log(up);
 
     up.classList.remove("playing");
+}
 
-});
+
+
 
 
 
