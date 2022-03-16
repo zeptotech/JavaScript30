@@ -1,4 +1,4 @@
-window.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", function (event) {
 
     const audio = document.querySelector("audio[data-key=" + '"' + event.key + '"' + "]");
     const key = document.querySelector(".key[data-key=" + '"' + event.key + '"' + "]");
@@ -7,13 +7,33 @@ window.addEventListener("keydown", function (event) {
     audio.currentTime = 0;
     audio.play();
 
-    key.classList.add("playing")
+    key.classList.add("playing");
+    //     // setTimeout(function () {
+    //     //     key.classList.remove("playing");
+    //     // }, 100);
+
+
 });
 
-for (let i = 0; i < querySelectorAll(".key").length; i++) {
-    document.querySelectorAll(".key")[i].addEventListener("transitioned", removeTransition);
-}
+
+document.addEventListener("keyup", function (event) {
+    const up = document.querySelector(".key[data-key=" + '"' + event.key + '"' + "]");
+    console.log(up);
+
+    up.classList.remove("playing");
+
+});
 
 
-const allKeys = document.querySelectorAll(".key");
-allKeys
+
+// for (let i = 0; i < document.querySelectorAll(".key").length; i++) {
+//     document.querySelectorAll(".key")[i].addEventListener("transitioned", removeTransition);
+// }
+
+// function removeTransition() {
+//     key.classList.remove("playing");
+// }
+
+
+// const allKeys = document.querySelectorAll(".key");
+// allKeys
