@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -34,32 +36,148 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
+
     // Array.prototype.filter()
+    // goes through whole array, if returns true keeps otherwise discards
     // 1. Filter the list of inventors for those who were born in the 1500's
+    // const fifteen = inventors.filter(function (inventor) {
+    //   if (inventor.year >= 1500 && inventor.year <= 1600) {
+    //     return true;
+    //   }
+    // });
+    // don't need to add return false condition
+    // does same thing as above but shortened, due to arrow function
+    const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+
+
+
+    console.table(fifteen);
 
     // Array.prototype.map()
+    // map will return same number of items you give it (returns new array of same length)
     // 2. Give us an array of the inventors first and last names
 
+    const fullNames = inventors.map(inventor => inventor.first + " " + inventor.last);
+
+    console.log(fullNames);
+
     // Array.prototype.sort()
+    // get two items and sort just those two items, returns 1 or -1 and bubbles items to the top
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    // const ordered = inventors.sort(function (a, b) {
+    //   if (a.year > b.year) {
+    //     return 1;
+    //   } else {
+    //     return -1;
+    //   }
+    // });
+
+    // ternary operator shorthand if statement
+    // if a.year > b.year true return 1, otherwise return -1
+    const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+
+    console.table(ordered);
+
+
     // Array.prototype.reduce()
-    // 4. How many years did all the inventors live all together?
+
+    // 4. How many years did all the inventors live all together? 
+    // give running total of what function returned last time
+    // loops over array
+    // ,0 sets total to 0 (instead of undefined) so you can add to it
+
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
+    // const oldest = inventors.sort(function (a, b) {
+    //   const lastGuy = a.passed - a.year;
+    //   const nextGuy = b.passed - b.year;
+    //   if (lastGuy > nextGuy) {
+    //     return -1;
+    //   } else {
+    //     return 1;
+    //   }
+    // });
+
+    const oldest = inventors.sort(function (a, b) {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+
+      return lastGuy > nextGuy ? -1 : 1;
+
+    });
+    console.table(oldest);
+
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // can call query selector for any existing dom ewlement
+
+
+    // commenting out since it can only be run on the wiki page, 3 lines of code (1-3)
+    //  1. const category = document.querySelector(".mw-category");
+    // gets list of links on the entire page (anchor tag)
+    // const links = category.querySelectorAll("a");
+    // returns a node list, need to change into an array
+
+    // ES6 spread to convert into an array, takes every every element out and puts into an array
+    // const links = [...category.querySelectorAll("a")];
+
+    // converts the node list into an array
+    // 2. const links = Array.from(category.querySelectorAll("a"));
+
+    // just get the text inside the link, don't care about the actual link
+    // 3. const de = links.map
+    //   .map(link => link.textContent)
+    //   .filter(streetName => streetName.includes("de"));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    // const alpha = people.sort(function (lastOne, nextOne) {
+    // creates new variable for each name set
+    //   const [aLast, aFirst] = lastOne.split(", ");
+    //   const [bLast, bFirst] = nextOne.split(", ");
+    //   return aLast > bLast ? 1 : -1;
+    // });
+
+    // use arrow function instead
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(", ");
+      const [bLast, bFirst] = nextOne.split(", ");
+      return aLast > bLast ? 1 : -1;
+    });
+
+    console.table(alpha);
+    // note an array is not returned, would use reduce if you wanted array
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    const transportation = data.reduce(function (obj, item) {
+      //  new object created at the bottom, this populates the object to start up (eg car: 0)
+      // checks to see if entry for that item has been made yet and if not, it adds it
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+      // count number of times the item has showed up with counter
+      obj[item]++;
+      return obj;
+    }, {
+
+    })
+
+    console.log(transportation);
 
   </script>
 </body>
+
 </html>
